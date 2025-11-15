@@ -6,6 +6,10 @@
     <title>صاغ - نظام الذكاء الاصطناعي التوليدي المدعوم بالاسترجاع | BrainSAIT</title>
     <meta name="description" content="صاغ: منصة ذكاء اصطناعي متقدمة تحول مستنداتك إلى معرفة تفاعلية. دعم كامل للعربية والإنجليزية مع أحدث نماذج الذكاء الاصطناعي">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PDF.js for PDF extraction -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <!-- Enhanced Styles -->
+    <link rel="stylesheet" href="styles-enhanced.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -800,15 +804,17 @@
                                         <span class="text-2xl">📤</span>
                                         <span data-ar="1. ارفع مستنداتك" data-en="1. Upload Documents">1. ارفع مستنداتك</span>
                                     </h4>
-                                    <div class="border-2 border-dashed border-teal border-opacity-50 rounded-xl p-8 text-center hover:border-opacity-100 transition-all cursor-pointer bg-gray-800 bg-opacity-30">
+                                    <div id="dropZone" class="upload-zone border-2 border-dashed border-teal border-opacity-50 rounded-xl p-8 text-center hover:border-opacity-100 transition-all cursor-pointer bg-gray-800 bg-opacity-30">
+                                        <input type="file" id="fileInput" class="hidden" multiple accept=".pdf,.docx,.doc,.txt,.csv,.json">
                                         <div class="text-5xl mb-4">📁</div>
                                         <p class="text-white font-semibold mb-2">
                                             <span data-ar="اسحب الملفات هنا أو انقر للاختيار" data-en="Drag files here or click to select">اسحب الملفات هنا أو انقر للاختيار</span>
                                         </p>
                                         <p class="text-gray-400 text-sm">
-                                            <span data-ar="PDF, DOCX, TXT حتى 10MB" data-en="PDF, DOCX, TXT up to 10MB">PDF, DOCX, TXT حتى 10MB</span>
+                                            <span data-ar="PDF, DOCX, TXT, CSV, JSON - أي حجم" data-en="PDF, DOCX, TXT, CSV, JSON - Any size">PDF, DOCX, TXT, CSV, JSON - أي حجم</span>
                                         </p>
                                     </div>
+                                    <div id="documentsList" class="mt-4"></div>
                                 </div>
 
                                 <!-- AI Provider Selection -->
@@ -818,7 +824,7 @@
                                         <span data-ar="2. اختر محرك الذكاء" data-en="2. Choose AI Engine">2. اختر محرك الذكاء</span>
                                     </h4>
                                     <div class="space-y-3">
-                                        <button class="w-full p-4 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 rounded-xl text-right transition-all">
+                                        <button class="ai-provider-btn w-full p-4 bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 rounded-xl text-right transition-all active" data-provider="gemini">
                                             <div class="flex items-center justify-between">
                                                 <span class="text-white font-semibold">Google Gemini</span>
                                                 <div class="flex items-center gap-2 text-gray-200 text-sm">
@@ -828,7 +834,7 @@
                                                 </div>
                                             </div>
                                         </button>
-                                        <button class="w-full p-4 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 rounded-xl text-right transition-all">
+                                        <button class="ai-provider-btn w-full p-4 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 rounded-xl text-right transition-all" data-provider="claude">
                                             <div class="flex items-center justify-between">
                                                 <span class="text-white font-semibold">Claude AI</span>
                                                 <div class="flex items-center gap-2 text-gray-200 text-sm">
@@ -838,7 +844,7 @@
                                                 </div>
                                             </div>
                                         </button>
-                                        <button class="w-full p-4 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 rounded-xl text-right transition-all">
+                                        <button class="ai-provider-btn w-full p-4 bg-gradient-to-r from-green-600 to-green-800 hover:from-green-700 hover:to-green-900 rounded-xl text-right transition-all" data-provider="openai">
                                             <div class="flex items-center justify-between">
                                                 <span class="text-white font-semibold">OpenAI GPT</span>
                                                 <div class="flex items-center gap-2 text-gray-200 text-sm">
@@ -847,6 +853,22 @@
                                                     <span>💬 محاوري</span>
                                                 </div>
                                             </div>
+                                        </button>
+                                    </div>
+                                    
+                                    <!-- Engine Buttons -->
+                                    <div class="mt-6 grid grid-cols-2 gap-3">
+                                        <button id="analyzeBtn" class="engine-btn engine-btn-analyze px-4 py-3 rounded-xl text-white font-semibold text-sm">
+                                            🔍 تحليل متقدم
+                                        </button>
+                                        <button id="summarizeBtn" class="engine-btn engine-btn-summarize px-4 py-3 rounded-xl text-white font-semibold text-sm">
+                                            📝 تلخيص
+                                        </button>
+                                        <button id="translateBtn" class="engine-btn engine-btn-translate px-4 py-3 rounded-xl text-white font-semibold text-sm">
+                                            🌍 ترجمة
+                                        </button>
+                                        <button id="repurposeBtn" class="engine-btn engine-btn-repurpose px-4 py-3 rounded-xl text-white font-semibold text-sm">
+                                            ♻️ إعادة صياغة
                                         </button>
                                     </div>
                                 </div>
@@ -861,7 +883,8 @@
                                     </h4>
                                     
                                     <!-- Messages Area -->
-                                    <div class="flex-1 overflow-y-auto space-y-4 mb-4 p-4 bg-gray-900 bg-opacity-50 rounded-xl">
+                                    <!-- Messages Area -->
+                                    <div id="messages" class="flex-1 overflow-y-auto space-y-4 mb-4 p-4 bg-gray-900 bg-opacity-50 rounded-xl custom-scrollbar">
                                         <!-- Sample Message 1 -->
                                         <div class="flex gap-3">
                                             <div class="w-8 h-8 bg-teal rounded-full flex items-center justify-center text-sm">🧠</div>
@@ -871,28 +894,23 @@
                                                 </p>
                                             </div>
                                         </div>
-
-                                        <!-- Sample Message 2 -->
-                                        <div class="flex gap-3 justify-end">
-                                            <div class="flex-1 bg-gradient-to-r from-teal to-medical p-4 rounded-2xl rounded-tl-sm max-w-[80%]">
-                                                <p class="text-white text-sm">
-                                                    <span data-ar="ما هي أهم النقاط في هذا المستند؟" data-en="What are the key points in this document?">ما هي أهم النقاط في هذا المستند؟</span>
-                                                </p>
-                                            </div>
-                                            <div class="w-8 h-8 bg-orange rounded-full flex items-center justify-center text-sm">👤</div>
-                                        </div>
                                     </div>
 
                                     <!-- Input Area -->
-                                    <div class="flex gap-3">
-                                        <button class="px-4 py-3 bg-medical hover:bg-teal rounded-xl transition-all">
+                                    <div class="chat-input-container flex gap-3">
+                                        <button id="voiceBtn" class="px-4 py-3 bg-medical hover:bg-teal rounded-xl transition-all" title="إدخال صوتي">
                                             <span class="text-xl">🎤</span>
                                         </button>
-                                        <input type="text" placeholder="اكتب سؤالك هنا..." class="flex-1 px-4 py-3 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-teal focus:outline-none transition-all" dir="rtl">
-                                        <button class="px-6 py-3 bg-gradient-to-r from-teal to-medical hover:from-medical hover:to-orange rounded-xl text-white font-semibold transition-all">
+                                        <input id="messageInput" type="text" placeholder="اكتب سؤالك هنا..." class="flex-1 px-4 py-3 bg-gray-800 text-white rounded-xl border border-gray-700 focus:border-teal focus:outline-none transition-all" dir="rtl">
+                                        <button id="sendBtn" class="px-6 py-3 bg-gradient-to-r from-teal to-medical hover:from-medical hover:to-orange rounded-xl text-white font-semibold transition-all">
                                             <span data-ar="إرسال" data-en="Send">إرسال</span>
                                         </button>
                                     </div>
+                                    
+                                    <!-- Download Button -->
+                                    <button id="downloadBtn" class="mt-4 w-full engine-btn engine-btn-download px-6 py-3 rounded-xl text-white font-semibold">
+                                        📥 تحميل النتائج
+                                    </button>
                                 </div>
 
                                 <!-- Quick Actions -->
@@ -901,16 +919,16 @@
                                         <span data-ar="🎯 أسئلة سريعة" data-en="🎯 Quick Questions">🎯 أسئلة سريعة</span>
                                     </h4>
                                     <div class="grid grid-cols-2 gap-2">
-                                        <button class="p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all">
+                                        <button class="quick-action p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all" data-action="summarize">
                                             <span data-ar="ملخص المستند" data-en="Summarize">ملخص المستند</span>
                                         </button>
-                                        <button class="p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all">
+                                        <button class="quick-action p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all" data-action="extract">
                                             <span data-ar="استخرج البيانات" data-en="Extract Data">استخرج البيانات</span>
                                         </button>
-                                        <button class="p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all">
+                                        <button class="quick-action p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all" data-action="translate">
                                             <span data-ar="ترجم للإنجليزية" data-en="Translate">ترجم للإنجليزية</span>
                                         </button>
-                                        <button class="p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all">
+                                        <button class="quick-action p-3 bg-gray-800 hover:bg-gray-700 rounded-lg text-white text-sm text-right transition-all" data-action="search">
                                             <span data-ar="ابحث عن..." data-en="Find...">ابحث عن...</span>
                                         </button>
                                     </div>
@@ -956,6 +974,12 @@
             </div>
         </footer>
     </div>
+
+    <!-- Upload Spinners Container -->
+    <div id="uploadSpinners" class="fixed top-20 right-4 z-40 max-w-md"></div>
+
+    <!-- Enhanced App Integration -->
+    <script src="app-enhanced.js"></script>
 
     <script>
         // Language toggle
