@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAG Project - Home</title>
+    <title>صاغ - نظام تشكيل المعرفة الذكي | SAGH - Knowledge Shaping Engine</title>
+    <meta name="description" content="صاغ: نظام الذكاء الاصطناعي التوليدي المدعوم بالاسترجاع - يسترجع، يشكّل، يُبدع">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,143 +16,608 @@
         }
         
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #0ea5e9 100%);
+            font-family: 'IBM Plex Sans Arabic', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #000;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: radial-gradient(circle at 20% 50%, rgba(43, 108, 184, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(14, 165, 233, 0.35) 0%, transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-5%, 5%) scale(1.05); }
+            66% { transform: translate(5%, -3%) scale(0.98); }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 20px;
             min-height: 100vh;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            padding: 20px;
-            animation: gradientShift 15s ease infinite;
-            background-size: 400% 400%;
         }
-        
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+        .logo-container {
+            margin-bottom: 40px;
+            animation: float 6s ease-in-out infinite;
         }
-        
-        .container {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 60px 40px;
-            max-width: 900px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.1);
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-        
-        h1 {
-            background: linear-gradient(135deg, #667eea, #0ea5e9, #764ba2);
+
+        .logo {
+            font-size: 8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #0ea5e9, #2b6cb8, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% auto;
+            animation: gradientShift 3s ease infinite;
+            text-shadow: 0 0 80px rgba(14, 165, 233, 0.5);
+            line-height: 1;
             margin-bottom: 20px;
-            font-size: 3.5rem;
-            font-weight: 800;
-            text-align: center;
-            letter-spacing: -1px;
         }
-        
-        .subtitle {
-            text-align: center;
-            color: #555;
-            font-size: 1.1rem;
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        .logo-subtitle {
+            font-size: 1.5rem;
+            color: #0ea5e9;
+            font-weight: 600;
+            letter-spacing: 0.1em;
             margin-bottom: 10px;
-            font-weight: 500;
         }
-        
-        .links {
-            display: grid;
-            gap: 20px;
-            margin-top: 40px;
+
+        .tagline {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            line-height: 1.4;
         }
-        
-        .link-card {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: #333;
-            border: 2px solid transparent;
-            transition: all 0.3s ease;
-            display: block;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+
+        .tagline-en {
+            font-size: 1.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            font-style: italic;
         }
-        
-        .link-card:hover {
-            border-color: #0ea5e9;
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.3);
+
+        /* Meaning Section */
+        .meaning-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 60px 40px;
+            margin: 80px auto;
+            max-width: 1200px;
         }
-        
-        .link-card h3 {
-            background: linear-gradient(135deg, #667eea, #0ea5e9);
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 50px;
+            background: linear-gradient(135deg, #0ea5e9, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 12px;
+        }
+
+        .meaning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .meaning-card {
+            background: rgba(14, 165, 233, 0.1);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .meaning-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #8b5cf6);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .meaning-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .meaning-card:hover {
+            transform: translateY(-10px);
+            border-color: #0ea5e9;
+            box-shadow: 0 20px 60px rgba(14, 165, 233, 0.3);
+        }
+
+        .meaning-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .meaning-title {
             font-size: 1.8rem;
             font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 15px;
         }
-        
-        .link-card p {
-            color: #666;
+
+        .meaning-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 15px;
+        }
+
+        .meaning-example {
             font-size: 1rem;
-            line-height: 1.6;
-            margin-bottom: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            font-style: italic;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border-right: 3px solid #0ea5e9;
         }
-        
-        .features {
-            color: #0ea5e9 !important;
-            font-weight: 600;
-            font-size: 0.95rem !important;
-            padding-top: 12px;
-            border-top: 1px solid #eee;
-        }
-        
-        .footer-note {
+
+        /* Process Flow */
+        .process-section {
+            padding: 80px 20px;
             text-align: center;
-            margin-top: 30px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
-            color: #888;
-            font-size: 0.9rem;
-            font-weight: 500;
         }
-        
+
+        .process-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+
+        .process-step {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            min-width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover {
+            transform: scale(1.05);
+            border-color: #0ea5e9;
+            box-shadow: 0 0 40px rgba(14, 165, 233, 0.4);
+        }
+
+        .process-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: #0ea5e9;
+            margin-bottom: 10px;
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .process-arrow {
+            font-size: 2.5rem;
+            color: #8b5cf6;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #0ea5e9, #2b6cb8);
+            color: white;
+            padding: 25px 60px;
+            border-radius: 50px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(14, 165, 233, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 60px rgba(14, 165, 233, 0.6);
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 80px 20px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            background: rgba(14, 165, 233, 0.1);
+            border-color: #0ea5e9;
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0ea5e9;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-logo {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+
+        .footer-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 10px;
+        }
+
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-toggle:hover {
+            background: rgba(14, 165, 233, 0.2);
+            border-color: #0ea5e9;
+        }
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
+            .logo {
+                font-size: 4rem;
             }
-            
-            .container {
-                padding: 40px 24px;
+
+            .tagline {
+                font-size: 1.8rem;
             }
-            
-            .link-card h3 {
-                font-size: 1.5rem;
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .meaning-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-flow {
+                flex-direction: column;
+            }
+
+            .process-arrow {
+                transform: rotate(90deg);
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>صاغ - SAGH</h1>
-        <p class="subtitle">منصة الذكاء الاصطناعي التوليدي المدعوم بالاسترجاع</p>
-        <p class="subtitle">Retrieval-Augmented Generative AI Platform</p>
-        
-        <div class="links">
-            <a href="./files/rag-arabic-business-enhanced.html" class="link-card">
-                <h3>🧠 صاغ - التطبيق التفاعلي</h3>
-                <p>منصة متقدمة لتحليل المستندات بالذكاء الاصطناعي مع دعم كامل للعربية والإنجليزية</p>
-                <p class="features">✨ رفع مستندات • 🎤 محادثة صوتية • ⚡ إجابات فورية • 🌍 دعم متعدد اللغات</p>
-            </a>
-        </div>
-        
-        <div class="footer-note">
-            Powered by BrainSAIT | برينسايت | Google Gemini, Claude AI, OpenAI GPT
-        </div>
+    <div class="bg-gradient"></div>
+    
+    <!-- Language Toggle -->
+    <div class="lang-toggle" onclick="toggleLanguage()" id="langToggle">
+        🌍 EN
     </div>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="logo-container">
+                <div class="logo" data-ar="صاغ" data-en="ṢĀGH">صاغ</div>
+                <div class="logo-subtitle" data-ar="ṢĀGH" data-en="صاغ">ṢĀGH</div>
+            </div>
+            
+            <h1 class="tagline" data-ar="نظام تشكيل المعرفة الذكي" data-en="The Knowledge Shaping Engine">
+                نظام تشكيل المعرفة الذكي
+            </h1>
+            
+            <p class="tagline-en" data-ar="Retrieval-Augmented Generative AI" data-en="الذكاء الاصطناعي التوليدي المدعوم بالاسترجاع">
+                Retrieval-Augmented Generative AI
+            </p>
+        </section>
+
+        <!-- Meaning Section -->
+        <section class="meaning-section">
+            <h2 class="section-title" data-ar="لماذا «صاغ»؟" data-en="Why 'ṢĀGH'?">لماذا «صاغ»؟</h2>
+            
+            <div class="meaning-grid">
+                <!-- Meaning 1: Crafting -->
+                <div class="meaning-card">
+                    <span class="meaning-icon">⚒️</span>
+                    <h3 class="meaning-title" data-ar="صاغ يُصوّغ" data-en="To Mold & Craft">صاغ يُصوّغ</h3>
+                    <p class="meaning-text" data-ar="بمعنى: شكّل، سبك، أبدع" data-en="Meaning: to shape, cast, create">
+                        بمعنى: شكّل، سبك، أبدع
+                    </p>
+                    <div class="meaning-example" data-ar="كما في قولهم: «صاغ الحليّ من الذهب والفضّة»" data-en="As in: 'He molded jewelry from gold and silver'">
+                        كما في قولهم: «صاغ الحليّ من الذهب والفضّة»
+                    </div>
+                </div>
+
+                <!-- Meaning 2: Formulating -->
+                <div class="meaning-card">
+                    <span class="meaning-icon">✍️</span>
+                    <h3 class="meaning-title" data-ar="صاغ الكلام والفكرة" data-en="To Formulate Ideas">صاغ الكلام والفكرة</h3>
+                    <p class="meaning-text" data-ar="بمعنى: ألّفها، رتّبها، وجعلها صيغةً مفهومة" data-en="Meaning: to compose, arrange, make comprehensible">
+                        بمعنى: ألّفها، رتّبها، وجعلها صيغةً مفهومة
+                    </p>
+                    <div class="meaning-example" data-ar="كما في «صاغ بياناً» بمعنى «أعدّ بياناً»" data-en="As in: 'He formulated a statement'">
+                        كما في «صاغ بياناً» بمعنى «أعدّ بياناً»
+                    </div>
+                </div>
+
+                <!-- Meaning 3: RAG Context -->
+                <div class="meaning-card">
+                    <span class="meaning-icon">🧠</span>
+                    <h3 class="meaning-title" data-ar="صاغ في سياق RAG" data-en="ṢĀGH in RAG Context">صاغ في سياق RAG</h3>
+                    <p class="meaning-text" data-ar="يسترجع النظام معلومات خام ثم «يصوغها» في شكل إجابة متكاملة" data-en="The system retrieves raw data then 'shapes' it into a complete answer">
+                        يسترجع النظام معلومات خام ثم «يصوغها» في شكل إجابة متكاملة
+                    </p>
+                    <div class="meaning-example" data-ar="الاسم يعكس بدقة العملية: استرجاع → تشكيل → تقديم" data-en="The name reflects the process: retrieve → shape → deliver">
+                        الاسم يعكس بدقة العملية: استرجاع → تشكيل → تقديم
+                    </div>
+                </div>
+            </div>
+
+            <p class="meaning-text" style="text-align: center; font-size: 1.3rem; margin-top: 40px;" data-ar="استخدام فعل عربي يعطي بعداً ثقافياً ولغوياً قوياً، ويتماشى مع توجهنا ثنائي اللغة (عربية/إنجليزية)" data-en="Using an Arabic verb adds strong cultural and linguistic depth, aligning with our bilingual (Arabic/English) approach">
+                استخدام فعل عربي يعطي بعداً ثقافياً ولغوياً قوياً، ويتماشى مع توجهنا ثنائي اللغة (عربية/إنجليزية)
+            </p>
+        </section>
+
+        <!-- Process Flow -->
+        <section class="process-section">
+            <h2 class="section-title" data-ar="كيف يعمل صاغ؟" data-en="How Does ṢĀGH Work?">كيف يعمل صاغ؟</h2>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-number">1</div>
+                    <div class="process-title" data-ar="استرجاع" data-en="Retrieve">استرجاع</div>
+                    <p class="meaning-text" data-ar="البحث في المعرفة" data-en="Search knowledge">البحث في المعرفة</p>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step">
+                    <div class="process-number">2</div>
+                    <div class="process-title" data-ar="تشكيل" data-en="Shape">تشكيل</div>
+                    <p class="meaning-text" data-ar="صياغة الإجابة" data-en="Craft answer">صياغة الإجابة</p>
+                </div>
+                
+                <div class="process-arrow">→</div>
+                
+                <div class="process-step">
+                    <div class="process-number">3</div>
+                    <div class="process-title" data-ar="تقديم" data-en="Deliver">تقديم</div>
+                    <p class="meaning-text" data-ar="إجابة متكاملة" data-en="Complete response">إجابة متكاملة</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="features-section">
+            <h2 class="section-title" data-ar="مميزات صاغ" data-en="ṢĀGH Features">مميزات صاغ</h2>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title" data-ar="تحليل متقدم" data-en="Advanced Analysis">تحليل متقدم</h3>
+                    <p class="feature-text" data-ar="استخراج النقاط الرئيسية والكيانات والمشاعر" data-en="Extract key points, entities, and sentiment">استخراج النقاط الرئيسية والكيانات والمشاعر</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📝</div>
+                    <h3 class="feature-title" data-ar="تلخيص ذكي" data-en="Smart Summarization">تلخيص ذكي</h3>
+                    <p class="feature-text" data-ar="ثلاثة مستويات من التلخيص حسب حاجتك" data-en="Three levels of summarization">ثلاثة مستويات من التلخيص حسب حاجتك</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3 class="feature-title" data-ar="ترجمة ثنائية" data-en="Bilingual Translation">ترجمة ثنائية</h3>
+                    <p class="feature-text" data-ar="ترجمة تلقائية بين العربية والإنجليزية" data-en="Auto translation between Arabic and English">ترجمة تلقائية بين العربية والإنجليزية</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">♻️</div>
+                    <h3 class="feature-title" data-ar="إعادة صياغة" data-en="Content Repurposing">إعادة صياغة</h3>
+                    <p class="feature-text" data-ar="تحويل المحتوى لـ 5 صيغ مختلفة" data-en="Convert content to 5 different formats">تحويل المحتوى لـ 5 صيغ مختلفة</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">📥</div>
+                    <h3 class="feature-title" data-ar="تصدير متعدد" data-en="Multi-format Export">تصدير متعدد</h3>
+                    <p class="feature-text" data-ar="تحميل بـ 6 صيغ ملفات مختلفة" data-en="Download in 6 file formats">تحميل بـ 6 صيغ ملفات مختلفة</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎤</div>
+                    <h3 class="feature-title" data-ar="تفاعل صوتي" data-en="Voice Interaction">تفاعل صوتي</h3>
+                    <p class="feature-text" data-ar="إدخال صوتي باللغتين" data-en="Voice input in both languages">إدخال صوتي باللغتين</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h2 class="section-title" data-ar="ابدأ التشكيل الآن" data-en="Start Shaping Now">ابدأ التشكيل الآن</h2>
+            <p class="meaning-text" style="margin-bottom: 40px; font-size: 1.3rem;" data-ar="حوّل مستنداتك إلى معرفة متكاملة" data-en="Transform your documents into complete knowledge">
+                حوّل مستنداتك إلى معرفة متكاملة
+            </p>
+            <a href="./files/rag-arabic-business-enhanced.html" class="cta-button">
+                <span data-ar="🚀 جرّب صاغ الآن" data-en="🚀 Try ṢĀGH Now">🚀 جرّب صاغ الآن</span>
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-logo">🧠</div>
+            <h3 style="font-size: 2rem; margin-bottom: 20px;">
+                <span data-ar="صاغ - نظام تشكيل المعرفة الذكي" data-en="ṢĀGH - Knowledge Shaping Engine">صاغ - نظام تشكيل المعرفة الذكي</span>
+            </h3>
+            <p class="footer-text" data-ar="Powered by BrainSAIT | برينسايت" data-en="مدعوم من BrainSAIT | برينسايت">
+                Powered by BrainSAIT | برينسايت
+            </p>
+            <p class="footer-text">
+                <span data-ar="Google Gemini • Claude AI • OpenAI GPT" data-en="Google Gemini • Claude AI • OpenAI GPT">Google Gemini • Claude AI • OpenAI GPT</span>
+            </p>
+            <p class="footer-text" style="margin-top: 20px; color: rgba(255, 255, 255, 0.4);">
+                © 2025 BrainSAIT. All rights reserved.
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        let currentLang = 'ar';
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const html = document.documentElement;
+            
+            if (currentLang === 'en') {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                document.getElementById('langToggle').innerHTML = '🌍 عربي';
+            } else {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                document.getElementById('langToggle').innerHTML = '🌍 EN';
+            }
+            
+            // Update all text elements
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                el.textContent = el.getAttribute('data-' + currentLang);
+            });
+        }
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.meaning-card, .feature-card, .process-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
 </body>
 </html>
