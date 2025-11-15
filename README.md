@@ -1,38 +1,98 @@
-# RAG Project
+# صاغ - SAGH Platform
 
-A Retrieval Augmented Generation (RAG) project with Arabic and English support.
+> الذكاء الاصطناعي التوليدي المدعوم بالاسترجاع  
+> Retrieval-Augmented Generative AI Platform
 
-## Features
+منصة متقدمة لتحليل المستندات بالذكاء الاصطناعي مع دعم كامل للعربية والإنجليزية.  
+Advanced AI-powered document analysis platform with full Arabic and English support.
 
-- Enhanced RAG with document upload and bilingual support
-- Multiple AI provider integration (OpenAI, Claude, Gemini)
-- Cloudflare Worker integration
+## ✨ المزايا الرئيسية | Key Features
 
-## Demo
+### 🧠 ذكاء اصطناعي متقدم | Advanced AI
+- دعم ثلاثة محركات ذكاء اصطناعي رائدة: Google Gemini, Claude AI, OpenAI GPT
+- تحليل سياقي عميق للمستندات
+- إجابات دقيقة مع الاستشهاد بالمصادر
 
-- [Enhanced Arabic Business RAG](./files/rag-arabic-business-enhanced.html)
+### 📄 معالجة المستندات | Document Processing
+- دعم PDF, DOCX, TXT
+- استخراج النصوص تلقائياً
+- تنظيم المعلومات بشكل ذكي
 
-## Deployment
+### 🌍 دعم متعدد اللغات | Multi-language Support
+- واجهة ثنائية اللغة (عربي/إنجليزي)
+- معالجة المستندات بكلا اللغتين
+- ترجمة تلقائية عند الحاجة
 
-This project is deployed on GitHub Pages and Cloudflare Workers.
+### 🎤 تفاعل صوتي | Voice Interaction
+- إدخال صوتي بالعربية والإنجليزية
+- تحويل النص إلى كلام طبيعي
+- تجربة محادثة تفاعلية
 
-### GitHub Pages
-Visit: `https://[your-username].github.io/rag/`
+### ⚡ أداء فوري | Instant Performance
+- معالجة سريعة للاستفسارات
+- نتائج في الوقت الفعلي
+- تجربة مستخدم سلسة
 
-### Cloudflare Worker
-Configured via `wrangler.toml`
+## 🚀 التجربة السريعة | Quick Start
 
-## Setup
+### عبر GitHub Pages:
+زر الموقع المباشر: https://fadil369.github.io/rag/
 
-1. Clone the repository
-2. Open `index.html` in your browser for local testing
-3. For Cloudflare deployment, see deployment guides in the docs
+### محلياً | Locally:
+```bash
+# نسخ المستودع
+git clone https://github.com/Fadil369/rag.git
 
-## Documentation
+# فتح الملف
+open index.html
+```
 
-- [Cloudflare Deployment Guide](./CLOUDFLARE_DEPLOYMENT.md)
-- [Deployment Quick Start](./DEPLOYMENT_QUICK_START.md)
-- [Auth Fix Guide](./AUTH_FIX_GUIDE.md)
+## 🎯 كيفية الاستخدام | How to Use
+
+1. **ارفع مستنداتك** - قم برفع ملفات PDF, DOCX, أو TXT
+2. **اختر محرك الذكاء** - اختر بين Gemini, Claude, أو GPT
+3. **ابدأ المحادثة** - اسأل أي سؤال عن مستنداتك
+4. **احصل على إجابات** - إجابات فورية ودقيقة مع المصادر
+
+## 🛠️ التقنيات المستخدمة | Technologies
+
+- **Frontend**: HTML5, CSS3, TailwindCSS, JavaScript (ES6+)
+- **AI Providers**: 
+  - Google Gemini Pro
+  - Anthropic Claude
+  - OpenAI GPT-4
+- **Features**: 
+  - Web Speech API
+  - File API
+  - LocalStorage
+  - Responsive Design
+
+## 📦 البنية | Structure
+
+```
+rag/
+├── index.html                          # الصفحة الرئيسية
+├── files/
+│   ├── rag-arabic-business-enhanced.html  # التطبيق الكامل
+│   ├── app.js                          # منطق التطبيق
+│   ├── services.js                     # خدمات API
+│   └── README.md                       # دليل files/
+├── worker/                             # Cloudflare Worker
+└── README.md                           # هذا الملف
+```
+
+## 🔐 الأمان والخصوصية | Security & Privacy
+
+- جميع مفاتيح API مخزنة محلياً في المتصفح
+- لا يتم إرسال البيانات لخوادمنا
+- الاتصال المباشر مع مزودي الذكاء الاصطناعي فقط
+- إمكانية حذف جميع البيانات في أي وقت
+
+## 📚 التوثيق | Documentation
+
+- [دليل النشر | Deployment Guide](./CLOUDFLARE_DEPLOYMENT.md)
+- [البدء السريع | Quick Start](./DEPLOYMENT_QUICK_START.md)
+- [ملخص المشروع | Project Summary](./files/PROJECT_SUMMARY.md)
 
 ## License
 
