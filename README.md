@@ -4,15 +4,13 @@ A Retrieval Augmented Generation (RAG) project with Arabic and English support.
 
 ## Features
 
-- Arabic Business RAG demo
-- Enhanced RAG with improved features
+- Enhanced RAG with document upload and bilingual support
+- Multiple AI provider integration (OpenAI, Claude, Gemini)
 - Cloudflare Worker integration
 
-## Demos
+## Demo
 
-- [Arabic Business RAG](./files/rag-arabic-business.html)
 - [Enhanced Arabic Business RAG](./files/rag-arabic-business-enhanced.html)
-- [Demo](./files/demo.html)
 
 ## Deployment
 
