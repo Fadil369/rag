@@ -1,0 +1,11 @@
+# Redirects and rewrites for BrainSAIT RAG
+# Powered by BrainSAIT | برينسايت
+
+# Redirect root to demo
+/ /demo.html 200
+
+# API proxy (if using Pages Functions instead of separate Worker)
+# /api/* https://rag-api.brainsait.io/api/:splat 200
+
+# Fallback for SPA routing
+/* /demo.html 200

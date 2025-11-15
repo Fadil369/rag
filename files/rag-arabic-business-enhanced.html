@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام RAG - الجيل القادم من الذكاء الاصطناعي لأعمالك | BrainSAIT</title>
+    <meta name="description" content="حوّل بيانات شركتك إلى قوة معرفية لا تُقهر. اجعل الذكاء الاصطناعي يفهم أعمالك بدقة 100%">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'IBM Plex Sans Arabic', sans-serif;
+        }
+
+        body {
+            background: #000000;
+            overflow-x: hidden;
+        }
+
+        /* NEURAL: Mesh Gradient Background */
+        .mesh-gradient-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            background: #000000;
+        }
+
+        .mesh-gradient-primary {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 50%, rgba(43, 108, 184, 0.4) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(138, 43, 226, 0.3) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, rgba(14, 165, 233, 0.35) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 70%, rgba(147, 51, 234, 0.25) 0%, transparent 50%);
+            animation: meshMove 20s ease-in-out infinite;
+        }
+
+        .mesh-gradient-wireframe {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.6;
+            background: 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(0deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: meshWireframe 25s linear infinite;
+        }
+
+        @keyframes meshMove {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-5%, 5%) scale(1.05); }
+            66% { transform: translate(5%, -3%) scale(0.98); }
+        }
+
+        @keyframes meshWireframe {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* NEURAL: Glass Morphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        .glass-card-strong {
+            background: rgba(26, 54, 93, 0.2);
+            backdrop-filter: blur(30px);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+        }
+
+        /* BRAINSAIT: Brand Colors */
+        .text-midnight { color: #1a365d; }
+        .text-medical { color: #2b6cb8; }
+        .text-teal { color: #0ea5e9; }
+        .text-orange { color: #ea580c; }
+        .bg-midnight { background-color: #1a365d; }
+        .bg-medical { background-color: #2b6cb8; }
+        .bg-teal { background-color: #0ea5e9; }
+        .bg-orange { background-color: #ea580c; }
+        .border-teal { border-color: #0ea5e9; }
+
+        /* Smooth animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .glow-teal {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.5);
+        }
+
+        .glow-medical {
+            box-shadow: 0 0 20px rgba(43, 108, 184, 0.5);
+        }
+
+        .glow-pulse {
+            animation: glowPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.8), 0 0 60px rgba(14, 165, 233, 0.4); }
+        }
+
+        /* Interactive hover effects */
+        .interactive-card {
+            transition: all 0.3s ease;
+        }
+
+        .interactive-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(14, 165, 233, 0.3);
+        }
+
+        /* RTL optimizations */
+        [dir="rtl"] .arrow-left {
+            transform: rotate(180deg);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #2b6cb8, #0ea5e9);
+            border-radius: 10px;
+        }
+
+        .content-container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Progress indicator */
+        .progress-dot {
+            transition: all 0.3s ease;
+        }
+
+        .progress-dot.active {
+            background: #0ea5e9;
+            transform: scale(1.5);
+        }
+
+        /* Animated gradient text */
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #2b6cb8, #8b5cf6);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% center; }
+            50% { background-position: 100% center; }
+        }
+
+        /* Particle effect */
+        .particle {
+            position: absolute;
+            background: rgba(14, 165, 233, 0.6);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Language toggle */
+        .lang-toggle {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+
+        [dir="rtl"] .lang-toggle {
+            left: auto;
+            right: 20px;
+        }
+
+        /* Demo button special effects */
+        .demo-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .demo-button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .demo-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* API Provider badges */
+        .api-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .api-badge:hover {
+            transform: scale(1.05);
+        }
+
+        /* Shimmer effect for demo section */
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <!-- NEURAL: Mesh Gradient Background -->
+    <div class="mesh-gradient-container">
+        <div class="mesh-gradient-primary"></div>
+        <div class="mesh-gradient-wireframe"></div>
+    </div>
+
+    <!-- Language Toggle -->
+    <div class="lang-toggle">
+        <button onclick="toggleLanguage()" class="glass-card px-4 py-2 text-white hover:bg-teal transition-all">
+            <span id="langText">EN</span>
+        </button>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-container min-h-screen">
+        <!-- SECTION 1: Hero -->
+        <section class="min-h-screen flex items-center justify-center px-6 py-20">
+            <div class="max-w-7xl mx-auto text-center fade-in">
+                <div class="inline-block mb-6 px-6 py-2 glass-card text-teal text-sm font-semibold">
+                    🚀 <span data-ar="تقنية الذكاء الاصطناعي الأكثر تطوراً" data-en="The Most Advanced AI Technology">تقنية الذكاء الاصطناعي الأكثر تطوراً</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-8xl font-bold mb-8 gradient-text leading-tight">
+                    <span data-ar="نظام RAG" data-en="RAG System">نظام RAG</span>
+                </h1>
+                
+                <p class="text-3xl md:text-5xl text-white mb-6 font-light">
+                    <span data-ar="الجيل القادم من الذكاء الاصطناعي" data-en="Next Generation of AI">الجيل القادم من الذكاء الاصطناعي</span>
+                </p>
+                
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-4xl mx-auto leading-relaxed">
+                    <span data-ar="حوّل بيانات شركتك إلى قوة معرفية لا تُقهر. اجعل الذكاء الاصطناعي يفهم أعمالك بدقة 100%" 
+                          data-en="Transform your company's data into unstoppable knowledge. Make AI understand your business with 100% accuracy">
+                        حوّل بيانات شركتك إلى قوة معرفية لا تُقهر. اجعل الذكاء الاصطناعي يفهم أعمالك بدقة 100%
+                    </span>
+                </p>
+
+                <!-- API Provider Badges -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <div class="api-badge glass-card text-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                        <span>Google Gemini</span>
+                    </div>
+                    <div class="api-badge glass-card text-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <circle cx="12" cy="12" r="10"/>
+                        </svg>
+                        <span>Claude AI</span>
+                    </div>
+                    <div class="api-badge glass-card text-white">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                        </svg>
+                        <span>OpenAI GPT</span>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <button onclick="scrollToSection('demo')" class="demo-button bg-orange hover:bg-teal px-12 py-6 rounded-full text-white text-2xl font-bold glow-pulse transition-all transform hover:scale-110">
+                        <span data-ar="جرّب التطبيق الآن 🎮" data-en="Try Live Demo 🎮">جرّب التطبيق الآن 🎮</span>
+                    </button>
+                    <button onclick="scrollToSection('what-is-rag')" class="bg-teal hover:bg-medical px-10 py-5 rounded-full text-white text-xl font-semibold glow-teal transition-all transform hover:scale-105">
+                        <span data-ar="اكتشف كيف يعمل" data-en="Discover How It Works">اكتشف كيف يعمل</span> ⬅
+                    </button>
+                </div>
+
+                <!-- Floating particles effect -->
+                <div class="mt-20 relative h-40">
+                    <div class="particle float" style="width: 10px; height: 10px; top: 20%; left: 20%; animation-delay: 0s;"></div>
+                    <div class="particle float" style="width: 15px; height: 15px; top: 60%; left: 80%; animation-delay: 2s;"></div>
+                    <div class="particle float" style="width: 8px; height: 8px; top: 40%; left: 50%; animation-delay: 4s;"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: What is RAG? -->
+        <section id="what-is-rag" class="min-h-screen flex items-center px-6 py-20">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-16 text-center">
+                    <span data-ar="ما هو نظام RAG؟" data-en="What is RAG?">ما هو نظام RAG؟</span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-12 items-center mb-20">
+                    <!-- Visual Explanation -->
+                    <div class="glass-card p-12 interactive-card">
+                        <div class="space-y-8">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4">🧠</div>
+                                <h3 class="text-3xl font-bold text-teal mb-4">
+                                    <span data-ar="Retrieval-Augmented Generation" data-en="Retrieval-Augmented Generation">Retrieval-Augmented Generation</span>
+                                </h3>
+                            </div>
+
+                            <div class="bg-black bg-opacity-40 p-6 rounded-2xl border border-teal border-opacity-30">
+                                <p class="text-white text-xl leading-relaxed">
+                                    <span data-ar="نظام ذكي يجمع بين:" data-en="An intelligent system combining:">نظام ذكي يجمع بين:</span>
+                                </p>
+                                <ul class="mt-6 space-y-4 text-lg text-gray-300">
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-teal text-2xl">📚</span>
+                                        <span data-ar="استرجاع المعلومات من قاعدة بيانات شركتك" data-en="Retrieving information from your company database">استرجاع المعلومات من قاعدة بيانات شركتك</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-medical text-2xl">⚡</span>
+                                        <span data-ar="توليد إجابات دقيقة بالذكاء الاصطناعي" data-en="Generating precise AI answers">توليد إجابات دقيقة بالذكاء الاصطناعي</span>
+                                    </li>
+                                    <li class="flex items-start gap-3">
+                                        <span class="text-orange text-2xl">🎯</span>
+                                        <span data-ar="ضمان دقة 100% مع مصادر موثقة" data-en="Ensuring 100% accuracy with documented sources">ضمان دقة 100% مع مصادر موثقة</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Text Explanation -->
+                    <div class="space-y-8">
+                        <div class="glass-card-strong p-10 interactive-card">
+                            <h4 class="text-2xl font-bold text-white mb-4">
+                                <span data-ar="🤔 المشكلة التقليدية" data-en="🤔 Traditional Problem">🤔 المشكلة التقليدية</span>
+                            </h4>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                <span data-ar="الذكاء الاصطناعي العادي (ChatGPT، Gemini) يجيب من معلومات عامة فقط - لا يعرف شيئاً عن شركتك، منتجاتك، أو عملائك" 
+                                      data-en="Regular AI (ChatGPT, Gemini) answers from general knowledge only - knows nothing about your company, products, or customers">
+                                    الذكاء الاصطناعي العادي (ChatGPT، Gemini) يجيب من معلومات عامة فقط - لا يعرف شيئاً عن شركتك، منتجاتك، أو عملائك
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="glass-card-strong p-10 interactive-card border-2 border-teal">
+                            <h4 class="text-2xl font-bold text-teal mb-4">
+                                <span data-ar="✨ حل RAG" data-en="✨ RAG Solution">✨ حل RAG</span>
+                            </h4>
+                            <p class="text-white text-lg leading-relaxed">
+                                <span data-ar="يربط الذكاء الاصطناعي بمعلومات شركتك الخاصة، فيصبح خبيراً في أعمالك ويجيب بدقة مذهلة استناداً إلى بياناتك الفعلية" 
+                                      data-en="Connects AI to your company's private information, becoming an expert in your business and answering with amazing accuracy based on your actual data">
+                                    يربط الذكاء الاصطناعي بمعلومات شركتك الخاصة، فيصبح خبيراً في أعمالك ويجيب بدقة مذهلة استناداً إلى بياناتك الفعلية
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Live Demo -->
+        <section id="demo" class="min-h-screen flex items-center px-6 py-20">
+            <div class="max-w-7xl mx-auto w-full">
+                <div class="text-center mb-16">
+                    <h2 class="text-5xl md:text-6xl font-bold text-white mb-6">
+                        <span data-ar="🎮 جرّب التطبيق التفاعلي" data-en="🎮 Try Interactive Demo">🎮 جرّب التطبيق التفاعلي</span>
+                    </h2>
+                    <p class="text-xl text-gray-300 mb-8">
+                        <span data-ar="تطبيق حقيقي يعمل بثلاث منصات ذكاء اصطناعي رائدة" data-en="Real application powered by three leading AI platforms">تطبيق حقيقي يعمل بثلاث منصات ذكاء اصطناعي رائدة</span>
+                    </p>
+                </div>
+
+                <div class="glass-card-strong p-8 md:p-12 shimmer">
+                    <!-- Demo Features -->
+                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                        <div class="glass-card p-6 text-center">
+                            <div class="text-4xl mb-3">📄</div>
+                            <h3 class="text-lg font-semibold text-white mb-2">
+                                <span data-ar="رفع المستندات" data-en="Upload Documents">رفع المستندات</span>
+                            </h3>
+                            <p class="text-gray-400 text-sm">
+                                <span data-ar="PDF, DOCX, TXT" data-en="PDF, DOCX, TXT">PDF, DOCX, TXT</span>
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 text-center">
+                            <div class="text-4xl mb-3">🎤</div>
+                            <h3 class="text-lg font-semibold text-white mb-2">
+                                <span data-ar="محادثة صوتية" data-en="Voice Chat">محادثة صوتية</span>
+                            </h3>
+                            <p class="text-gray-400 text-sm">
+                                <span data-ar="عربي & English" data-en="Arabic & English">عربي & English</span>
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-6 text-center">
+                            <div class="text-4xl mb-3">⚡</div>
+                            <h3 class="text-lg font-semibold text-white mb-2">
+                                <span data-ar="إجابات فورية" data-en="Instant Answers">إجابات فورية</span>
+                            </h3>
+                            <p class="text-gray-400 text-sm">
+                                <span data-ar="دقة 100%" data-en="100% Accuracy">دقة 100%</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Demo Launch Button -->
+                    <div class="text-center">
+                        <a href="demo.html" target="_blank" class="demo-button inline-block bg-gradient-to-r from-teal to-medical hover:from-medical hover:to-orange px-16 py-6 rounded-full text-white text-2xl font-bold glow-pulse transition-all transform hover:scale-110">
+                            <span data-ar="🚀 افتح التطبيق التجريبي" data-en="🚀 Launch Demo App">🚀 افتح التطبيق التجريبي</span>
+                        </a>
+                        <p class="text-gray-400 mt-6 text-sm">
+                            <span data-ar="جاهز للاستخدام الفوري • لا حاجة للتسجيل" data-en="Ready to use instantly • No registration required">جاهز للاستخدام الفوري • لا حاجة للتسجيل</span>
+                        </p>
+                    </div>
+
+                    <!-- API Selection Info -->
+                    <div class="mt-12 p-6 bg-black bg-opacity-40 rounded-2xl border border-teal border-opacity-30">
+                        <h4 class="text-xl font-bold text-white mb-4 text-center">
+                            <span data-ar="اختر منصة الذكاء الاصطناعي المفضلة" data-en="Choose Your Preferred AI Platform">اختر منصة الذكاء الاصطناعي المفضلة</span>
+                        </h4>
+                        <div class="grid md:grid-cols-3 gap-4 text-center">
+                            <div class="p-4 rounded-xl bg-gray-800 bg-opacity-50">
+                                <p class="text-teal font-semibold mb-2">Google Gemini</p>
+                                <p class="text-gray-400 text-xs">
+                                    <span data-ar="تحليل متقدم + صوت طبيعي" data-en="Advanced analysis + Natural voice">تحليل متقدم + صوت طبيعي</span>
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-gray-800 bg-opacity-50">
+                                <p class="text-medical font-semibold mb-2">Claude AI</p>
+                                <p class="text-gray-400 text-xs">
+                                    <span data-ar="فهم عميق للسياق" data-en="Deep context understanding">فهم عميق للسياق</span>
+                                </p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-gray-800 bg-opacity-50">
+                                <p class="text-orange font-semibold mb-2">OpenAI GPT</p>
+                                <p class="text-gray-400 text-xs">
+                                    <span data-ar="أداء موثوق ومتوازن" data-en="Reliable balanced performance">أداء موثوق ومتوازن</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Why NOW? -->
+        <section id="why-now" class="min-h-screen flex items-center px-6 py-20">
+            <div class="max-w-7xl mx-auto">
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-16 text-center">
+                    <span data-ar="🚨 لماذا يجب التبني الآن؟" data-en="🚨 Why Adopt NOW?">🚨 لماذا يجب التبني الآن؟</span>
+                </h2>
+
+                <div class="grid md:grid-cols-2 gap-12 mb-20">
+                    <!-- Urgency reasons -->
+                    <div class="space-y-6">
+                        <div class="glass-card p-8 interactive-card border-r-4 border-orange">
+                            <h3 class="text-2xl font-bold text-orange mb-4">
+                                <span data-ar="⏰ السرعة = البقاء" data-en="⏰ Speed = Survival">⏰ السرعة = البقاء</span>
+                            </h3>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                <span data-ar="الشركات التي لا تتبنى الذكاء الاصطناعي الآن ستتخلف 10 سنوات عن المنافسين خلال عام واحد فقط" 
+                                      data-en="Companies not adopting AI now will be 10 years behind competitors in just one year">
+                                    الشركات التي لا تتبنى الذكاء الاصطناعي الآن ستتخلف 10 سنوات عن المنافسين خلال عام واحد فقط
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-8 interactive-card border-r-4 border-teal">
+                            <h3 class="text-2xl font-bold text-teal mb-4">
+                                <span data-ar="💰 وفّر 60% من التكاليف" data-en="💰 Save 60% Costs">💰 وفّر 60% من التكاليف</span>
+                            </h3>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                <span data-ar="خفض وقت البحث عن المعلومات من ساعات إلى ثوانٍ. موظفوك سيركزون على الإبداع بدلاً من البحث" 
+                                      data-en="Reduce information search time from hours to seconds. Your employees will focus on creativity instead of searching">
+                                    خفض وقت البحث عن المعلومات من ساعات إلى ثوانٍ. موظفوك سيركزون على الإبداع بدلاً من البحث
+                                </span>
+                            </p>
+                        </div>
+
+                        <div class="glass-card p-8 interactive-card border-r-4 border-medical">
+                            <h3 class="text-2xl font-bold text-medical mb-4">
+                                <span data-ar="🎯 دقة غير مسبوقة" data-en="🎯 Unprecedented Accuracy">🎯 دقة غير مسبوقة</span>
+                            </h3>
+                            <p class="text-gray-300 text-lg leading-relaxed">
+                                <span data-ar="لا مزيد من الأخطاء أو المعلومات القديمة. كل إجابة مستندة إلى بياناتك المحدّثة" 
+                                      data-en="No more errors or outdated information. Every answer based on your updated data">
+                                    لا مزيد من الأخطاء أو المعلومات القديمة. كل إجابة مستندة إلى بياناتك المحدّثة
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Statistics -->
+                    <div class="glass-card-strong p-10">
+                        <h3 class="text-3xl font-bold text-white mb-8 text-center">
+                            <span data-ar="📊 أرقام لا تكذب" data-en="📊 Numbers Don't Lie">📊 أرقام لا تكذب</span>
+                        </h3>
+
+                        <div class="space-y-8">
+                            <div class="text-center">
+                                <div class="text-6xl font-bold gradient-text mb-2">80%</div>
+                                <p class="text-gray-300 text-lg">
+                                    <span data-ar="من وقت الموظفين يُهدر في البحث عن معلومات موجودة أصلاً" 
+                                          data-en="of employee time wasted searching for existing information">
+                                        من وقت الموظفين يُهدر في البحث عن معلومات موجودة أصلاً
+                                    </span>
+                                </p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="text-6xl font-bold gradient-text mb-2">10x</div>
+                                <p class="text-gray-300 text-lg">
+                                    <span data-ar="زيادة في سرعة اتخاذ القرارات" data-en="increase in decision-making speed">زيادة في سرعة اتخاذ القرارات</span>
+                                </p>
+                            </div>
+
+                            <div class="text-center">
+                                <div class="text-6xl font-bold gradient-text mb-2">95%</div>
+                                <p class="text-gray-300 text-lg">
+                                    <span data-ar="دقة في الإجابات مقارنة بـ 40% للذكاء الاصطناعي العادي" 
+                                          data-en="accuracy in answers vs 40% for regular AI">
+                                        دقة في الإجابات مقارنة بـ 40% للذكاء الاصطناعي العادي
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: ROI Calculator -->
+        <section class="min-h-screen flex items-center px-6 py-20">
+            <div class="max-w-5xl mx-auto w-full">
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-16 text-center">
+                    <span data-ar="💵 احسب عائد الاستثمار" data-en="💵 Calculate ROI">💵 احسب عائد الاستثمار</span>
+                </h2>
+
+                <div class="glass-card-strong p-12">
+                    <div class="space-y-8">
+                        <div>
+                            <label class="text-white text-xl mb-3 block">
+                                <span data-ar="عدد الموظفين في شركتك:" data-en="Number of employees:">عدد الموظفين في شركتك:</span>
+                            </label>
+                            <input type="range" id="employees" min="10" max="1000" value="50" 
+                                   class="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                   oninput="calculateROI()">
+                            <div class="text-teal text-2xl font-bold mt-2" id="employeeCount">50</div>
+                        </div>
+
+                        <div>
+                            <label class="text-white text-xl mb-3 block">
+                                <span data-ar="متوسط الراتب الشهري (ريال):" data-en="Average monthly salary (SAR):">متوسط الراتب الشهري (ريال):</span>
+                            </label>
+                            <input type="range" id="salary" min="5000" max="50000" value="15000" step="1000"
+                                   class="w-full h-3 bg-gray-700 rounded-lg appearance-none cursor-pointer"
+                                   oninput="calculateROI()">
+                            <div class="text-teal text-2xl font-bold mt-2" id="salaryAmount">15,000</div>
+                        </div>
+
+                        <div class="border-t-2 border-teal pt-8 mt-8">
+                            <h3 class="text-3xl font-bold text-white mb-6 text-center">
+                                <span data-ar="💰 التوفير السنوي المتوقع" data-en="💰 Expected Annual Savings">💰 التوفير السنوي المتوقع</span>
+                            </h3>
+                            <div class="text-center">
+                                <div class="text-7xl font-bold gradient-text mb-4" id="savings">0</div>
+                                <p class="text-gray-300 text-xl">
+                                    <span data-ar="ريال سعودي / سنة" data-en="SAR / year">ريال سعودي / سنة</span>
+                                </p>
+                                <p class="text-gray-400 mt-4">
+                                    <span data-ar="بافتراض توفير 20 ساعة عمل شهرياً لكل موظف" 
+                                          data-en="Assuming 20 hours saved per employee monthly">
+                                        بافتراض توفير 20 ساعة عمل شهرياً لكل موظف
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: CTA -->
+        <section class="min-h-screen flex items-center px-6 py-20">
+            <div class="max-w-5xl mx-auto text-center">
+                <h2 class="text-5xl md:text-7xl font-bold mb-8 gradient-text leading-tight">
+                    <span data-ar="هل أنت مستعد لتحويل أعمالك؟" data-en="Ready to Transform Your Business?">هل أنت مستعد لتحويل أعمالك؟</span>
+                </h2>
+
+                <p class="text-2xl md:text-3xl text-gray-300 mb-12 leading-relaxed">
+                    <span data-ar="لا تدع منافسيك يسبقونك بسنوات ضوئية" data-en="Don't let competitors get light years ahead">لا تدع منافسيك يسبقونك بسنوات ضوئية</span>
+                </p>
+
+                <div class="glass-card-strong p-12 mb-12">
+                    <h3 class="text-3xl font-bold text-white mb-8">
+                        <span data-ar="🎁 ابدأ الآن - احصل على:" data-en="🎁 Start Now - Get:">🎁 ابدأ الآن - احصل على:</span>
+                    </h3>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 text-right">
+                        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-teal border-opacity-30">
+                            <p class="text-teal text-xl font-semibold mb-2">✓</p>
+                            <p class="text-white text-lg">
+                                <span data-ar="استشارة مجانية لتحليل احتياجات شركتك" data-en="Free consultation to analyze your company needs">استشارة مجانية لتحليل احتياجات شركتك</span>
+                            </p>
+                        </div>
+                        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-teal border-opacity-30">
+                            <p class="text-teal text-xl font-semibold mb-2">✓</p>
+                            <p class="text-white text-lg">
+                                <span data-ar="تجربة مجانية لمدة 30 يوم" data-en="30-day free trial">تجربة مجانية لمدة 30 يوم</span>
+                            </p>
+                        </div>
+                        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-teal border-opacity-30">
+                            <p class="text-teal text-xl font-semibold mb-2">✓</p>
+                            <p class="text-white text-lg">
+                                <span data-ar="تدريب كامل لفريقك" data-en="Complete training for your team">تدريب كامل لفريقك</span>
+                            </p>
+                        </div>
+                        <div class="bg-black bg-opacity-40 p-6 rounded-xl border border-teal border-opacity-30">
+                            <p class="text-teal text-xl font-semibold mb-2">✓</p>
+                            <p class="text-white text-lg">
+                                <span data-ar="دعم فني على مدار الساعة" data-en="24/7 technical support">دعم فني على مدار الساعة</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <a href="demo.html" target="_blank" class="demo-button inline-block bg-orange hover:bg-teal px-16 py-6 rounded-full text-white text-2xl font-bold glow-pulse transition-all transform hover:scale-110">
+                        <span data-ar="جرّب المنصة مجاناً 🚀" data-en="Try Platform Free 🚀">جرّب المنصة مجاناً 🚀</span>
+                    </a>
+                    <button onclick="contactUs()" class="bg-teal hover:bg-medical px-16 py-6 rounded-full text-white text-2xl font-bold glow-teal transition-all transform hover:scale-110">
+                        <span data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</span>
+                    </button>
+                </div>
+
+                <p class="text-gray-400 text-lg mt-8">
+                    <span data-ar="لا حاجة لبطاقة ائتمان • إلغاء في أي وقت" data-en="No credit card required • Cancel anytime">لا حاجة لبطاقة ائتمان • إلغاء في أي وقت</span>
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-800 py-12 px-6">
+            <div class="max-w-7xl mx-auto text-center">
+                <div class="text-6xl mb-6">🧠</div>
+                <h3 class="text-3xl font-bold gradient-text mb-4">BrainSAIT</h3>
+                <p class="text-gray-400 mb-8">
+                    <span data-ar="نقود ثورة الذكاء الاصطناعي في العالم العربي" data-en="Leading the AI revolution in the Arab world">نقود ثورة الذكاء الاصطناعي في العالم العربي</span>
+                </p>
+                <div class="flex justify-center gap-6 text-teal text-sm">
+                    <a href="#" class="hover:text-white transition-colors">
+                        <span data-ar="الخصوصية" data-en="Privacy">الخصوصية</span>
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <span data-ar="الشروط" data-en="Terms">الشروط</span>
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <a href="#" class="hover:text-white transition-colors">
+                        <span data-ar="اتصل بنا" data-en="Contact">اتصل بنا</span>
+                    </a>
+                </div>
+                <p class="text-gray-600 mt-8 text-sm">
+                    © 2024 BrainSAIT. <span data-ar="جميع الحقوق محفوظة" data-en="All rights reserved">جميع الحقوق محفوظة</span>.
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Language toggle
+        let currentLang = 'ar';
+        
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const html = document.documentElement;
+            
+            if (currentLang === 'en') {
+                html.setAttribute('lang', 'en');
+                html.setAttribute('dir', 'ltr');
+                document.getElementById('langText').textContent = 'عربي';
+            } else {
+                html.setAttribute('lang', 'ar');
+                html.setAttribute('dir', 'rtl');
+                document.getElementById('langText').textContent = 'EN';
+            }
+            
+            // Update all text elements
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                el.textContent = el.getAttribute('data-' + currentLang);
+            });
+        }
+
+        // Smooth scroll
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ROI Calculator
+        function calculateROI() {
+            const employees = document.getElementById('employees').value;
+            const salary = document.getElementById('salary').value;
+            
+            document.getElementById('employeeCount').textContent = employees;
+            document.getElementById('salaryAmount').textContent = parseInt(salary).toLocaleString('ar-SA');
+            
+            // Calculate savings: 20 hours/month per employee at hourly rate
+            const hourlyRate = salary / 160; // assuming 160 hours per month
+            const hourlySaved = 20; // hours saved per employee per month
+            const monthlySavings = employees * hourlyRate * hourlySaved;
+            const annualSavings = monthlySavings * 12;
+            
+            document.getElementById('savings').textContent = Math.round(annualSavings).toLocaleString('ar-SA');
+        }
+
+        // Contact function
+        function contactUs() {
+            alert(currentLang === 'ar' 
+                ? 'شكراً لاهتمامك! سيتواصل معك فريقنا قريباً.\n\nيمكنك أيضاً تجربة التطبيق التجريبي الآن!'
+                : 'Thank you for your interest! Our team will contact you soon.\n\nYou can also try the demo app now!');
+        }
+
+        // Initialize
+        calculateROI();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.interactive-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Create floating particles
+        function createParticles() {
+            const container = document.querySelector('.mesh-gradient-container');
+            for (let i = 0; i < 20; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.width = Math.random() * 5 + 3 + 'px';
+                particle.style.height = particle.style.width;
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = Math.random() * 4 + 4 + 's';
+                particle.classList.add('float');
+                container.appendChild(particle);
+            }
+        }
+
+        createParticles();
+    </script>
+</body>
+</html>

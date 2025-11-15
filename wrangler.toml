@@ -1,0 +1,32 @@
+# Cloudflare Worker Configuration for BrainSAIT RAG API
+# Powered by BrainSAIT | برينسايت
+
+name = "brainsait-rag-api"
+main = "worker/index.js"
+compatibility_date = "2024-01-01"
+account_id = "519d80ce438f427d096a3e3bdd98a7e0"
+
+# Worker route configuration
+routes = [
+  { pattern = "rag-api.brainsait.io/*", zone_name = "brainsait.io" }
+]
+
+# Environment variables (set these in Cloudflare Dashboard or via wrangler secret)
+# DO NOT commit actual API keys - use wrangler secret put instead
+[env.production]
+name = "brainsait-rag-api-production"
+routes = [
+  { pattern = "rag-api.brainsait.io/*", zone_name = "brainsait.io" }
+]
+
+# Example: wrangler secret put GEMINI_API_KEY
+# Example: wrangler secret put CLAUDE_API_KEY
+# Example: wrangler secret put OPENAI_API_KEY
+
+# Development environment
+[env.development]
+name = "brainsait-rag-api-dev"
+
+# Limits and configuration
+[limits]
+cpu_ms = 50

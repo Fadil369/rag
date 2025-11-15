@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Project - Home</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        h1 {
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+        
+        .links {
+            display: grid;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .link-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #333;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: block;
+        }
+        
+        .link-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .link-card h3 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .link-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RAG Project</h1>
+        <p>Welcome to the RAG (Retrieval Augmented Generation) project. Explore the demos below:</p>
+        
+        <div class="links">
+            <a href="./files/rag-arabic-business.html" class="link-card">
+                <h3>Arabic Business RAG</h3>
+                <p>RAG demo for Arabic business applications</p>
+            </a>
+            
+            <a href="./files/rag-arabic-business-enhanced.html" class="link-card">
+                <h3>Enhanced Arabic Business RAG</h3>
+                <p>Enhanced version with improved features</p>
+            </a>
+            
+            <a href="./files/demo.html" class="link-card">
+                <h3>Demo</h3>
+                <p>General RAG demonstration</p>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
